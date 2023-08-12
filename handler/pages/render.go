@@ -22,6 +22,6 @@ func (h *RenderHandler) GetHome(c *fiber.Ctx) error {
 }
 
 func (h *RenderHandler) GetLogin(c *fiber.Ctx) error {
-    data := &loginData{ PageTitle: "Leaderboard" }
+    data := &loginData{ PageTitle: "Login" }
     return c.Render("login", data, "layouts/login")
 }
