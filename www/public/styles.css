@@ -1,0 +1,72 @@
+:root {
+    --color-primary: #1d184e;
+    --color-secondary: #b7c0ee;
+    --color-warning: #a6262e;
+    --color-succes: #3e7a5c;
+    --font-title: 'Handjet', cursive;
+    --font-text: 'Ubuntu Mono', monospace;;
+}
+
+body {
+    padding: 20px 40px;
+    padding-bottom: 0;
+    margin: 0;
+    min-height: calc(100vh - 40px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-primary);
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: var(--font-title);
+    color: white;
+}
+
+p ,a ,ul ,ol, label {
+    font-family: var(--font-text);
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    font-style: italic;
+    font-weight: bolder;
+}
+
+a:hover {
+    font-weight: lighter;
+    text-decoration: underline;
+}
+
+main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.login-form {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    width: calc(50% - 50px);
+    background-color: var(--color-secondary);
+    border-radius: 10px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#footer-emoji {
+    color: var(--color-warning);
+    font-size: 25px;
+}

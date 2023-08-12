@@ -1,0 +1,11 @@
+<main>
+    <h1>Login</h1>
+    <form class="login-form" hx-post="/login">
+        <label for="username">Username :</label>
+        <input type="text" id="username" name="username" placeholder="Your username" />
+        <label for="password">Password :</label>
+        <input type="password" id="password" name="password" placeholder="Your password" />
+        <button type="submit" class="btn-action">Login</button>
+    </form>
+</main>
+{{ template "components/footer" . }}
