@@ -1,5 +1,13 @@
 {{ template "components/header" . }}
 <main>
-    The leaderboard
+    <h2>My games</h2>
+    <div class="sheet" hx-get="/games" hx-trigger="load beforeend">
+    </div>
+    <h2>Create new Game</h2>
+    <div class="form-result"></div>
+    <form class="form-game" hx-post="/games" hx-target=".form-result" >
+        <input type="text" placeholder="Name" name="game-name" />
+        <button type="submit" class="btn btn-action">Add</button>
+    </form>
 </main>
 {{ template "components/footer" . }}

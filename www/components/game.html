@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="head col">
+        <p>Name</p>
+    </div>
+    <div class="head col">
+        <p>UUID</p>
+    </div>
+</div>
+{{ range . }}
+<div class="row">
+    <div class="col">
+        <a href="/leaderboard/{{ .UUID }}">{{.Name}}</a>
+    </div>
+    <div class="col">
+        <p>{{.UUID}}</p>
+        <div class="btn" data-content="{{.UUID}}" class="copy-clipboard">copy</div>
+    </div>
+</div>
+{{ end }}
+<script>
+    let btns = document.querySelectorAll(".copy-clipboard")
+    btns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            navigator.clipboard.writeText(btn.dataset.content)
+        })
+    })
+</script>

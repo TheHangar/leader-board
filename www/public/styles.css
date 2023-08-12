@@ -129,3 +129,34 @@ input:focus {
     color: white;
     font-weight: bold;
 }
+
+.error {
+    padding: 8px 20px;
+    background-color: var(--color-warning);
+    border: 2px solid darkred;
+    border-radius: 7px;
+}
+
+.sheet {
+    width: 100%;
+}
+.sheet > .head {
+    font-size: 18px;
+    font-weight: bold;
+}
+.row {
+    border: 1px solid white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.col {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-right: 1px solid white;
+    text-align: center;
+}
+.col:last-child {
+    border-right: none;
+}

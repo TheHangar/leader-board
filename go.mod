@@ -5,6 +5,9 @@ go 1.20
 require (
 	github.com/gofiber/fiber/v2 v2.48.0
 	github.com/gofiber/template/html/v2 v2.0.5
+	github.com/golang-jwt/jwt/v5 v5.0.0
+	github.com/lib/pq v1.10.9
+	golang.org/x/crypto v0.7.0
 )
 
 require (

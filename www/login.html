@@ -1,6 +1,7 @@
 {{ template "components/header" . }}
 <main>
-    <form class="login-form" hx-post="/login">
+    <div class="error-card"></div>
+    <form class="login-form" hx-post="/login" hx-target=".error-card">
         <input type="text" id="username" name="username" placeholder="Username" />
         <input type="password" id="password" name="password" placeholder="Password" />
         <button type="submit" class="btn btn-action">Login</button>
