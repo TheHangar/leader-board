@@ -58,6 +58,10 @@ func (a *AuthUserHandler) VerifyToken(c *fiber.Ctx) error {
 }
 
 func validJWT(tkn string) bool {
+    if tkn == "" {
+        return false
+    }
+
     token, _ := jwt.Parse(tkn, func(token *jwt.Token) (interface{}, error) {
         if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
             return nil, fmt.Errorf("unauthorized")

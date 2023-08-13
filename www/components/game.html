@@ -9,19 +9,14 @@
 {{ range . }}
 <div class="row">
     <div class="col">
-        <a href="/leaderboard/{{ .UUID }}">{{.Name}}</a>
+        <p>{{.Name}}</p>
+        <a class="btn btn-action" href="/games/{{ .UUID }}">Go</a>
+        <button class="btn btn-warning" hx-delete="/hm/games/{{ .UUID }}" hx-trigger="click" hx-confirm="Are you sur you want to delete {{.Name}} ?">Delete</button>
     </div>
     <div class="col">
-        <p>{{.UUID}}</p>
-        <div class="btn" data-content="{{.UUID}}" class="copy-clipboard">copy</div>
+        <acronym title="Copy to clipboard">
+            <p class="copy-clipboard">{{.UUID}}</p>
+        </acronym>
     </div>
 </div>
 {{ end }}
-<script>
-    let btns = document.querySelectorAll(".copy-clipboard")
-    btns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            navigator.clipboard.writeText(btn.dataset.content)
-        })
-    })
-</script>

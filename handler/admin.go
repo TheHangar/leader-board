@@ -1,7 +1,10 @@
 package handler
 
 import (
+	"fmt"
 	"log"
+	"math/rand"
+	"time"
 
 	custometype "github.com/TheHangar/leader-board/custome_type"
 	"github.com/TheHangar/leader-board/store"
@@ -84,7 +87,7 @@ func (h *AdminHandler) HandleCreateAdmin(c *fiber.Ctx) error {
 func (h *AdminHandler) HandlePostGame(c *fiber.Ctx) error {
     name := c.FormValue("game-name")
 
-    newGame := &custometype.Game{ UUID: uuid.New().String(), Name: name }
+    newGame := &custometype.Game{ UUID: uuid.New().String(), Name: name, ApiKey: buildAPIKey() }
 
     _, err := h.store.Game.AddGame(newGame)
 
@@ -94,7 +97,9 @@ func (h *AdminHandler) HandlePostGame(c *fiber.Ctx) error {
         return c.Render("components/error", data)
     }
 
-    log.Println("New game added:", newGame)
+    redirectPath := fmt.Sprintf("/games/%s", newGame.UUID)
+    c.Response().Header.Add("HX-Push", redirectPath)
+    c.Response().Header.Add("HX-Redirect", redirectPath)
     return c.Render("components/newGame", newGame)
 }
 
@@ -107,6 +112,44 @@ func (h *AdminHandler) HandleGetGames(c *fiber.Ctx) error {
     }
 
     return c.Render("components/game", games)
+}
+
+func (h *AdminHandler) HandleGetGameUsage(c *fiber.Ctx) error {
+    gameUUID := c.Params("uuid")
+
+    game, err := h.store.Game.GetGameByUUID(gameUUID)
+    if err != nil {
+        data := &custometype.ErrorMessage{ Message: "Database error." }
+        return c.Render("components/error", data)
+    }
+
+    return c.Render("components/gameUsage", game)
+}
+
+func (h *AdminHandler) HandleGetGameLeaderboard(c *fiber.Ctx) error {
+    gameUUID := c.Params("uuid")
+
+    leaderboard, err := h.store.Leaderboard.GetLeaderboardByGameUUID(gameUUID)
+    if err != nil {
+        data := &custometype.ErrorMessage{ Message: "Database error." }
+        return c.Render("components/error", data)
+    }
+
+    log.Println(leaderboard)
+    return c.Render("components/leaderboard", leaderboard)
+}
+
+func (h *AdminHandler) HandleDeleteGame(c *fiber.Ctx) error {
+    gameUUID := c.Params("uuid")
+
+    if err := h.store.Game.DeleteGame(gameUUID); err != nil {
+        data := &custometype.ErrorMessage{ Message: "Database error." }
+        return c.Render("components/error", data)
+    }
+
+    c.Response().Header.Add("HX-Push", "/")
+    c.Response().Header.Add("HX-Redirect", "/")
+    return c.Render("components/newGame", nil)
 }
 
 func createHashFromPassword(pwd string) (string, error) {
@@ -122,4 +165,16 @@ func createHashFromPassword(pwd string) (string, error) {
 func verifyPassword(pwdHash, pwd string) bool {
     err := bcrypt.CompareHashAndPassword([]byte(pwdHash), []byte(pwd))
     return err == nil
+}
+
+func buildAPIKey() string {
+    keyLength := 128
+    charset := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    seededRand := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	b := make([]byte, keyLength)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
 }

@@ -29,6 +29,22 @@ h1, h2, h3, h4, h5 {
 p ,a ,ul ,ol, label {
     font-family: var(--font-text);
     color: white;
+    font-size: 18px;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+h2 {
+    font-size: 33px;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+h3 {
+    font-size: 30px;
+    font-weight: 300;
 }
 
 a {
@@ -41,14 +57,26 @@ a:hover {
     font-weight: lighter;
     text-decoration: underline;
 }
-
+header > h1 {
+    margin: 0px;
+}
+footer > p {
+    margin: 0px;
+}
 main {
-    height: calc(90vh - 40px);
+    min-height: calc(90vh - 40px);
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    word-break: break-all;
+}
+
+code {
+    background-color: black;
+    color: white;
+    padding: 20px;
 }
 
 .login-form {
@@ -113,6 +141,7 @@ input:focus {
 .btn {
     width: fit-content;
     padding: 5px 15px;
+    margin: 0px 15px;
     border-radius: 7px;
     border: none;
     box-shadow: var(--btn-box-shadow);
@@ -137,26 +166,47 @@ input:focus {
     border-radius: 7px;
 }
 
+.container {
+    width: 100%;
+    margin: 20px 0px;
+}
+
 .sheet {
     width: 100%;
+    border: 1px solid white;
+    border-bottom: none;
 }
-.sheet > .head {
+.head {
     font-size: 18px;
     font-weight: bold;
 }
 .row {
-    border: 1px solid white;
+    border-bottom: 1px solid white;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .col {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     border-right: 1px solid white;
     text-align: center;
+    height: 100%;
+    width: 100%;
 }
 .col:last-child {
     border-right: none;
+}
+
+.copy-clipboard:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.form-game {
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

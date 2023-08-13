@@ -11,13 +11,14 @@ import (
 )
 
 type LeaderboardStore interface {
-    AddLeaderboard(*custometype.Leaderboard) (*custometype.Leaderboard, error)
+    AddLeaderboard(*custometype.Leaderboard) error
     GetLeaderboardByGameUUID(string) ([]*custometype.Leaderboard, error)
     GetTopPlayerFromGameUUID(uuid string, top int) ([]*custometype.Leaderboard, error)
 }
 
 type GameStore interface {
     AddGame(*custometype.Game) (*custometype.Game, error)
+    GetGameByUUID(string) (*custometype.Game, error)
     GetGames() ([]*custometype.Game, error)
     DeleteGame(uuid string) error
 }
@@ -73,17 +74,18 @@ func PostgresSeed() error {
     createTables := `
         CREATE TABLE IF NOT EXISTS game (
             id SERIAL,
+            api_key VARCHAR(256),
             uuid VARCHAR(256) PRIMARY KEY,
             name VARCHAR(256)
         );
         CREATE TABLE IF NOT EXISTS admin (
             id SERIAL PRIMARY KEY,
-            username VARCHAR(256),
+            username VARCHAR(256) NOT NULL UNIQUE,
             password VARCHAR(256)
         );
         CREATE TABLE IF NOT EXISTS leaderboard (
             id SERIAL PRIMARY KEY,
-            game_uuid VARCHAR(256) REFERENCES game(uuid),
+            game_uuid VARCHAR(256) REFERENCES game(uuid) ON DELETE CASCADE,
             pseudo VARCHAR(256),
             score FLOAT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -101,7 +103,7 @@ func PostgresSeed() error {
         return err
     }
 
-    _, err = db.Exec("INSERT INTO admin(username, password) VALUES ($1, $2)", os.Getenv("ADMIN_NAME"), string(hashPwd))
+    _, err = db.Exec("INSERT INTO admin (username, password) VALUES ($1, $2) ON CONFLICT (username) DO NOTHING;", os.Getenv("ADMIN_NAME"), string(hashPwd))
 
     return err
 }

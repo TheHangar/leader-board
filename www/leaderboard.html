@@ -1,0 +1,8 @@
+{{ template "components/header" . }}
+<main>
+    <div class="container" hx-get="/hm/games/{{.GameUUID}}/usage" hx-trigger="load"></div>
+    <div class="container" hx-get="/hm/games/{{.GameUUID}}/leaderboard" hx-trigger="load">
+        <p>No data...</p>
+    </div>
+</main>
+{{ template "components/footer" . }}

@@ -1,0 +1,27 @@
+<h2>Leaderboard</h2>
+<div class="sheet">
+    <div class="row head">
+        <div class="col">
+            <p>Placement</p>
+        </div>
+        <div class="col">
+            <p>Pseudo</p>
+        </div>
+        <div class="col">
+            <p>Score</p>
+        </div>
+    </div>
+    {{ range .}}
+    <div class="row">
+        <div class="col">
+            <p>{{ .Rank }}</p>
+        </div>
+        <div class="col">
+            <p>{{ .User_UUID }}</p>
+        </div>
+        <div class="col">
+            <p>{{ .Score }}</p>
+        </div>
+    </div>
+    {{ end }}
+</div>
