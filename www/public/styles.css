@@ -74,9 +74,11 @@ main {
 }
 
 code {
-    background-color: black;
+    background-color: #121212;
     color: white;
     padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #3f3c3c;
 }
 
 .login-form {
@@ -192,8 +194,9 @@ input:focus {
     align-items: center;
     border-right: 1px solid white;
     text-align: center;
-    height: 100%;
-    width: 100%;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    padding: 10px;
 }
 .col:last-child {
     border-right: none;
@@ -209,4 +212,12 @@ input:focus {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.card-usage {
+    margin: 15px 0;
+    padding: 20px;
+    background-color: #252627;
+    border-radius: 7px;
+    box-shadow: var(--btn-box-shadow);
 }

@@ -2,7 +2,6 @@ package handler
 
 import (
 	"fmt"
-	"log"
 	"math/rand"
 	"time"
 
@@ -32,7 +31,6 @@ func (h *AdminHandler) HandlePostLogin(c *fiber.Ctx) error {
     userFound, err := h.store.User.GetAdminUserByUsername(username)
 
     if err != nil {
-        log.Println(err)
         data := &custometype.ErrorMessage{ Message: "Database error." }
         return c.Render("components/error", data)
     }
@@ -92,7 +90,6 @@ func (h *AdminHandler) HandlePostGame(c *fiber.Ctx) error {
     _, err := h.store.Game.AddGame(newGame)
 
     if err != nil {
-        log.Println(err)
         data := &custometype.ErrorMessage{ Message: "Database error." }
         return c.Render("components/error", data)
     }
@@ -135,7 +132,6 @@ func (h *AdminHandler) HandleGetGameLeaderboard(c *fiber.Ctx) error {
         return c.Render("components/error", data)
     }
 
-    log.Println(leaderboard)
     return c.Render("components/leaderboard", leaderboard)
 }
 

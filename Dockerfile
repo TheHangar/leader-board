@@ -6,3 +6,6 @@ COPY . .
 RUN go build -o leaderboard .
 EXPOSE 3000
 CMD [ "./leaderboard" ]
+
+LABEL org.opencontainers.image.source=https://github.com/thehangar/leadear-board
+LABEL org.opencontainers.image.licenses=MIT
