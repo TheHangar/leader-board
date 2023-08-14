@@ -10,7 +10,7 @@ docker-compose up --build
 ```
 ## Usage
 ### Web UI
-Go to your web browser at [localhost:3000](localhost:3000) then login using the credentiale you create in the *.env* file. 
+Go to your web browser at [localhost:3000](http://localhost:3000) then login using the credentiale you create in the *.env* file. 
 Create a new game and copy-paste the game's **API key** and **uuid**.
 You can add or delete game through your web access.
 ### REST API
