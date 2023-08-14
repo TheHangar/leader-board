@@ -21,7 +21,6 @@ This request has two params.
 * top (int): which is optional, and is used if you need to get the top **X** of the game's leaderboard.
 The response will look like this :
 ```json
-// GET /api/v1/game/7e8r78e-rew89-bs9ds798/leaderboard/10
 [
     { 
         "pseudo": "",
@@ -32,7 +31,6 @@ The response will look like this :
 #### POST /api/v1/games/{game-uuid}/leaderboard
 This request is used to post a new score into the game's leaderboard. The request's body needs to be :
 ```json
-// POST /api/v1/game/7e8r78e-rew89-bs9ds798/leaderboard
 { 
     "pseudo": "",
     "score": 0.0
