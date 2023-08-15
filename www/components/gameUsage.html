@@ -33,7 +33,7 @@
         </div>
         <h3>HTTP endpoints</h3>
         <div class="card-usage ">
-            <p><strong>GET /api/v1/game/{{.UUID}}/leaderboard/{top}</strong></p>
+            <p><strong>GET /api/v1/games/{{.UUID}}/leaderboard/{top}</strong></p>
             <p>By passing a number {top} in this GET request, you'lle receive the {top} score from the game's leaderboard.</p>
             <p>Response:</p>
             <code>
@@ -45,7 +45,7 @@
             </code>
         </div>
         <div class="card-usage ">
-            <p><strong>POST /api/v1/game/{{.UUID}}/leaderboard</strong></p>
+            <p><strong>POST /api/v1/games/{{.UUID}}/leaderboard</strong></p>
             <p>Request body:</p>
             <code>
                 {
