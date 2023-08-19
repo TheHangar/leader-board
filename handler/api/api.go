@@ -11,7 +11,7 @@ type ApiHandler struct {
 }
 
 type getLeaderboardResponse struct {
-    Leaderboard []*custometype.Leaderboard
+    Leaderboard []*custometype.Leaderboard `json:"leaderbard"`
 }
 
 type postLeaderboardRequest struct {
