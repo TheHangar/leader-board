@@ -10,6 +10,10 @@ type ApiHandler struct {
     lbStore store.LeaderboardStore
 }
 
+type getLeaderboardResponse struct {
+    Leaderboard []*custometype.Leaderboard
+}
+
 type postLeaderboardRequest struct {
     Pseudo string `json:"pseudo"`
     Score float64 `json:"score"`
@@ -39,7 +43,9 @@ func (h *ApiHandler) HandleGetGameLeaderboard(c *fiber.Ctx) error {
         return c.Status(500).JSON(map[string]string{"message": "database error"})
     }
 
-    return c.JSON(leaderboard)
+    response := &getLeaderboardResponse{Leaderboard: leaderboard}
+
+    return c.JSON(response)
 }
 
 func (h *ApiHandler) HandlePostLeaderboard(c *fiber.Ctx) error {
