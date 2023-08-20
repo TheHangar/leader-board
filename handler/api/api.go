@@ -24,6 +24,7 @@ func NewApiHandler(lbs store.LeaderboardStore) *ApiHandler {
 }
 
 func (h *ApiHandler) HandleGetGameLeaderboard(c *fiber.Ctx) error {
+    response := &getLeaderboardResponse{}
     gameUUID := c.Params("uuid")
     top, _ := c.ParamsInt("top")
 
@@ -34,18 +35,16 @@ func (h *ApiHandler) HandleGetGameLeaderboard(c *fiber.Ctx) error {
             return c.Status(500).JSON(map[string]string{"message": "database error"})
         }
 
-        response := &getLeaderboardResponse{Leaderboard: leaderboard}
+        response.Leaderboard = leaderboard
+    } else {
+        leaderboard, err := h.lbStore.GetTopPlayerFromGameUUID(gameUUID, top)
 
-        return c.JSON(response)
+        if err != nil {
+            return c.Status(500).JSON(map[string]string{"message": "database error"})
+        }
+
+        response.Leaderboard = leaderboard
     }
-
-    leaderboard, err := h.lbStore.GetTopPlayerFromGameUUID(gameUUID, top)
-
-    if err != nil {
-        return c.Status(500).JSON(map[string]string{"message": "database error"})
-    }
-
-    response := &getLeaderboardResponse{Leaderboard: leaderboard}
 
     return c.JSON(response)
 }
