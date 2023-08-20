@@ -34,7 +34,9 @@ func (h *ApiHandler) HandleGetGameLeaderboard(c *fiber.Ctx) error {
             return c.Status(500).JSON(map[string]string{"message": "database error"})
         }
 
-        return c.JSON(leaderboard)
+        response := &getLeaderboardResponse{Leaderboard: leaderboard}
+
+        return c.JSON(response)
     }
 
     leaderboard, err := h.lbStore.GetTopPlayerFromGameUUID(gameUUID, top)
